@@ -2,6 +2,7 @@ package router
 
 import (
 	"backend/controllers"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,8 +14,8 @@ func SetupRouter() *gin.Engine {
 
 	// Rutas y controladores
 	router.GET("/courses", controllers.GetCourses)
-	router.POST("/courses", controllers.CreateCourse)
-	router.DELETE("/courses/:id", controllers.DeleteCourse)
+	//router.POST("/courses", controllers.CreateCourse)
+	//router.DELETE("/courses/:id", controllers.DeleteCourse)
 	router.POST("/login", controllers.Login)
 	router.GET("/subscriptions", controllers.GetSubscriptions)
 	router.POST("/subscriptions", controllers.CreateSubscription)

@@ -1,20 +1,22 @@
 package controllers
 
 import (
-	"backend/dao"
+	"backend/domain"
 	"backend/services"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Login(c *gin.Context) {
-	var loginRequest dao.LoginRequest
+	var loginRequest domain.LoginRequest
+
 	if err := c.ShouldBindJSON(&loginRequest); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	token, userID, userType, err := services.Login(loginRequest.NombreUsuario, loginRequest.Contrasena)
+	token, userID, userType, err := services.Login(loginRequest.Username, loginRequest.Password)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 		return
