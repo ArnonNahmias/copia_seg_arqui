@@ -1,4 +1,4 @@
-package router
+package app
 
 import (
 	"backend/controllers"
@@ -22,9 +22,16 @@ func SetupRouter() *gin.Engine {
 	router.DELETE("/subscriptions/:id", controllers.DeleteSubscription)
 	router.GET("/search", controllers.Search)
 	router.GET("/search/:id", controllers.SearchByID)
-
+	router.POST("/register", controllers.Register)
+	protected := router.Group("/protected")
+	protected.Use(AuthMiddleware())
+	{
+		protected.GET("/", controllers.ProtectedEndpoint)
+	}
 	return router
 }
+
+
 
 func allowCORS(c *gin.Context) {
 	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
@@ -38,3 +45,4 @@ func allowCORS(c *gin.Context) {
 	}
 	c.Next()
 }
+

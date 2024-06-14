@@ -3,9 +3,10 @@ package controllers
 import (
 	"backend/dao"
 	"backend/services"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GetCourses(c *gin.Context) {
