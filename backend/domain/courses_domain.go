@@ -3,11 +3,10 @@ package domain
 import "time"
 
 type Course struct {
-	IdCurso    int64     `json:"id"`          // Course ID
-	Nombre     string    `json:"title"`       // Course title
-	Dificultad string    `json:"description"` // Course description
-	Precio     string    `json:"category"`    // Course Category. Allowed values: to be defined
-	ImageURL   string    `json:"image_url"`
+	IdCurso    int64     `json:"id"`            // Course ID
+	Nombre     string    `json:"title"`         // Course title
+	Dificultad string    `json:"description"`   // Course description
+	Precio     string    `json:"category"`      // Course Category. Allowed values: to be defined
 	CreatedAt  time.Time `json:"creation_date"` // Course creation date
 	UpdatedAt  time.Time `json:"last_updated"`  // Course last updated date
 }
@@ -24,4 +23,3 @@ type SubscribeRequest struct {
 type SearchRequest struct {
 	IdCurso int `json:"IdCurso"`
 }
-

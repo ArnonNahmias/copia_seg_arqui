@@ -53,7 +53,9 @@ func SeedDB() {
 
 	log.Println("Seeding database...")
 	cursos := []dao.Course{
-		{Nombre: "Ingles B2", Dificultad: "Medio", Precio: 45, Direccion: "José Roque Funes 1511 X5000ABE Córdoba", ImageURL: "https://blog.hubspot.com/hs-fs/hubfs/freeonlinecourses-1.webp?width=595&height=400&name=freeonlinecourses-1.webp"},
+		{Nombre: "Ingles B2", Dificultad: "Medio", Precio: 45, Direccion: "José Roque Funes 1511 X5000ABE Córdoba",
+			Rating: 4.5, Categoria: "Idiomas", Archivo1: "https://www.youtube.com/watch?v=6PtflpPVhJQ", Archivo2: " ",
+			Comentarios: "Curso interesante para aquellos que desean la mejor experiencia en nivel de ingles B2"},
 	}
 	for _, curso := range cursos {
 		DB.Create(&curso)
