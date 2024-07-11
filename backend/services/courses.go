@@ -3,27 +3,12 @@ package services
 import (
 	"backend/clients"
 	"backend/dao"
-	"backend/domain"
-	"strconv"
 )
 
-func GetCourses() ([]domain.Course, error) {
-	courses, err := clients.GetCourses1()
-	if err != nil {
-		return nil, err
-	}
-	results := make([]domain.Course, 0)
-	for _, course := range courses {
-		results = append(results, domain.Course{
-			IdCurso:    int64(course.IdCurso), // Convert int to int64
-			Nombre:     course.Nombre,
-			Dificultad: course.Dificultad,
-			Precio:     strconv.Itoa(course.Precio), // Convert int to string
-			CreatedAt:  course.CreatedAt,
-			UpdatedAt:  course.UpdatedAt,
-		})
-	}
-	return results, nil
+func GetCourses() ([]dao.Course, error) {
+	var courses []dao.Course
+	result := clients.DB.Find(&courses)
+	return courses, result.Error
 }
 
 func CreateCourse(course dao.Course) (dao.Course, error) {

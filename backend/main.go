@@ -7,14 +7,12 @@ import (
 )
 
 func main() {
-	// Inicializar la base de datos
-	clients.InitDB()
+    // Inicializa la base de datos
+    clients.InitDB()
 
-	// Configurar el router
-	r := app.SetupRouter()
-
-	// Iniciar el servidor HTTP
-	if err := r.Run(":8080"); err != nil {
-		log.Fatalf("Failed to run server: %v", err)
-	}
+    // Configura y corre el servidor
+    router := app.SetupRouter()
+    if err := router.Run(":8080"); err != nil {
+        log.Fatal(err)
+    }
 }

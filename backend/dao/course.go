@@ -2,19 +2,30 @@ package dao
 
 import (
 	"time"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 type Course struct {
-	IdCurso     int       `gorm:"primaryKey;column:Id_curso;autoIncrement"`
-	Nombre      string    `gorm:"column:Nombre;not null"`
-	Dificultad  string    `gorm:"column:Dificultad;not null"`
-	Precio      int       `gorm:"column:Precio;not null"`
-	Direccion   string    `gorm:"column:Direccion"`
-	Rating      float32   `gorm:"column:Rating"`
-	Categoria   string    `gorm:"column:Categoria"`
-	Archivo1    string    `gorm:"column:Archivo1"`
-	Archivo2    string    `gorm:"column:Archivo2"`
-	Comentarios string    `gorm:"column:Comentarios"`
-	CreatedAt   time.Time `gorm:"column:Created_at;autoCreateTime"`
-	UpdatedAt   time.Time `gorm:"column:Updated_at;autoUpdateTime"`
+	ID          uint      `gorm:"primaryKey"`
+	Nombre      string    `json:"nombre"`
+	Dificultad  string    `json:"dificultad"`
+	Precio      float64   `json:"precio"`
+	Direccion   string    `json:"direccion"`
+	ImageURL    string    `json:"imageURL"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
+}
+
+var DB *gorm.DB
+
+func InitializeDatabase() {
+	var err error
+	dsn := "your-username:your-password@tcp(your-database-host:your-database-port)/your-database-name?charset=utf8mb4&parseTime=True&loc=Local"
+	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	DB.AutoMigrate(&Course{})
 }

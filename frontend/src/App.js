@@ -1,42 +1,29 @@
-// App.js
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { CourseProvider } from './contexts/CourseContext';
-import TopMenu from './components/TopMenu/TopMenu';
-import CoursesAdmin from './components/Courses/CoursesAdmin';
-import Foot from './components/Foot/Foot';
-import UserValidation from './components/UserValidation/UserValidation';
-import Home from './components/Home/Home';
-import './App.scss';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import CoursePage from "./pages/CoursePage";
+import { UserProvider } from "./context/UserContext"; // Importa el UserProvider
 
 function App() {
-  const [userRole, setUserRole] = useState(null);
-
-  const handleLogin = (role) => {
-    setUserRole(role);
-  };
-
-  const handleSignOut = () => {
-    setUserRole(null);
-  };
-
   return (
-    <CourseProvider>
+    <UserProvider>
       <Router>
-        <div className="App">
-          <TopMenu userRole={userRole} onSignOut={handleSignOut} />
-          <div className="content">
-            <Routes>
-              <Route path="/" element={<Home userRole={userRole} />} />
-              <Route path="/login" element={<UserValidation onLogin={handleLogin} />} />
-              <Route path="/admin" element={userRole === 'admin' ? <CoursesAdmin /> : <Home userRole={userRole} />} />
-              <Route path="/courses" element={userRole ? <Home userRole={userRole} /> : <Home userRole={userRole} />} />
-            </Routes>
-          </div>
-          <Foot />
-        </div>
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/courses/:id" element={<CoursePage />} />
+        </Routes>
+        <Footer />
       </Router>
-    </CourseProvider>
+    </UserProvider>
   );
 }
 

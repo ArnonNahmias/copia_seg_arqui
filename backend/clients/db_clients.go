@@ -15,8 +15,8 @@ var DB *gorm.DB
 
 func InitDB() {
 	log.Println("Initializing database...")
-	dsn := "root:admin@tcp(127.0.0.1:3306)/proyecto?charset=utf8mb4&parseTime=True&loc=Local"
-	//dsn := "root:58005800@tcp(127.0.0.1:3306)/proyecto1?charset=utf8mb4&parseTime=True&loc=Local"
+	// dsn := "root:admin@tcp(127.0.0.1:3306)/proyecto?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:58005800@tcp(127.0.0.1:3306)/proyecto4?charset=utf8mb4&parseTime=True&loc=Local"
 	var err error
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
@@ -30,7 +30,7 @@ func InitDB() {
 
 func Migrate() {
 	log.Println("Migrating database...")
-	DB.AutoMigrate(&dao.Usuario{}, &dao.Course{}, &dao.Subscription{})
+	DB.AutoMigrate(&dao.Usuario{}, &dao.Course{}, &dao.Subscription{}, &dao.Comment{})
 }
 
 func hashPassword(password string) string {
@@ -54,9 +54,8 @@ func SeedDB() {
 
 	log.Println("Seeding database...")
 	cursos := []dao.Course{
-		{Nombre: "Ingles B2", Dificultad: "Medio", Precio: 45, Direccion: "José Roque Funes 1511 X5000ABE Córdoba",
-			Rating: 4.5, Categoria: "Idiomas", Archivo1: "https://www.youtube.com/watch?v=6PtflpPVhJQ", Archivo2: " ",
-			Comentarios: "Curso interesante para aquellos que desean la mejor experiencia en nivel de ingles B2"},
+		{Nombre: "Ingles B2", Dificultad: "Medio", Precio: 45, Direccion: "José Roque Funes 1511 X5000ABE Córdoba", ImageURL: "https://diarium.usal.es/ireneigls/files/2018/09/b2-de-ingles.jpg"},
+		{Nombre: "Hacking Etico", Dificultad: "Dificil", Precio: 60, Direccion: "Paseo de la Reforma 505, CDMX", ImageURL: "https://www.pmg-ssi.com/wp-content/uploads/2023/08/he.jpg"},
 	}
 	for _, curso := range cursos {
 		DB.Create(&curso)

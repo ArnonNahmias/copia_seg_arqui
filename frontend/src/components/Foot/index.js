@@ -1,1 +1,0 @@
-import foot from './Foot'
